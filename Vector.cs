@@ -30,7 +30,10 @@ namespace cornishroom
             y *= -1;
             z *= -1;
         }
-
+        public static Vector operator -(Vector v)
+        {
+            return new Vector(-v.x, -v.y, -v.z);
+        }
         public Vector cross(Vector other)
         {
             return new Vector(
@@ -56,6 +59,10 @@ namespace cornishroom
         {
             return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
         }
+        public static Vector operator -(Vector v1, Vector v2)
+        {
+            return new Vector(v1.x - v2.x, v1.y -v2.y, v1.z - v2.z);
+        }
         public static bool operator !=(Vector v1, Vector v2)
         {
             return !(v1 == v2);
@@ -64,5 +71,14 @@ namespace cornishroom
         {
             return Math.Sqrt(x * x + y * y + z * z);
         }
+        public static Vector operator *(float t, Vector p1)
+        {
+            return new Vector(p1.x * t, p1.y * t, p1.z * t);
+        }
+        public static Vector operator *(double t, Vector p1)
+        {
+            return new Vector(p1.x * t, p1.y * t, p1.z * t);
+        }
+
     }
 }

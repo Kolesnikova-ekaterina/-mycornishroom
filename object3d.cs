@@ -10,6 +10,24 @@ using System.Globalization;
 
 namespace cornishroom
 {
+    public class Sphere
+    {
+        public PointD center;
+        public double radius;
+        public Color color;
+        public double specular;
+        public double reflective;
+        public double transparency = 0.3;
+        public Sphere(PointD p, double r, Color c, double s, double reflect)
+        {
+            center = p;
+            radius = r;
+            color = c;
+            specular = s;
+            reflective = reflect;
+        }
+    }
+    public enum objecttype { walls, polyhedron }
     public class Polyhedra 
     {
         public Color color;
@@ -18,6 +36,10 @@ namespace cornishroom
         public PointD center;
         public bool is_specular;
         public bool is_transparent;
+        public double specular;
+        public objecttype Objecttype;
+        public double reflective;
+        public double transparency = 0;
 
         public Polyhedra(Color c, List<Polygon> polys, List<PointD> ps, bool isspecular, bool istransparent )
         {
@@ -30,11 +52,14 @@ namespace cornishroom
             find_normals();
         }
 
-        public Polyhedra(string filename, Vector shift, Color c)
+        public Polyhedra(string filename, Vector shift, Color c, double s, objecttype ot, double reflect)
         {
             polygons = new List<Polygon>();
             points = new List<PointD>();
             color = c;
+            specular = s;
+            Objecttype = ot;
+            reflective = reflect;
             var sr = new StreamReader(filename);
             var text = sr.ReadToEnd();
 
@@ -70,7 +95,7 @@ namespace cornishroom
                         ll.Add(new Line(v1, v2));
                     }
 
-                    polygons.Add(new Polygon(ll, color));
+                    polygons.Add(new Polygon(ll, color, specular, Objecttype, reflective, transparency)) ;
                 }
 
             }
@@ -124,6 +149,23 @@ namespace cornishroom
                 points[i] = new PointD(res[0, 0], res[0, 1], res[0, 2]);
             }
         }
+
+        public void SetReflective(double reflect)
+        {
+            reflective = reflect;
+            for (int i = 0; i < polygons.Count; i++)
+            {
+                polygons[i].reflective = reflect;
+            }
+        }
+        public void SetTransparency(double tr)
+        {
+            transparency = tr;
+            for (int i = 0; i < polygons.Count; i++)
+            {
+                polygons[i].transparency = tr;
+            }
+        }
     }
 
     public class PointD
@@ -165,10 +207,19 @@ namespace cornishroom
         public double D;
         public bool isVisible = true;
         public Color color;
-        public Polygon(List<Line> l, Color c)
+        public double specular;
+        public objecttype Objecttype;
+        public double reflective;
+        public double transparency;
+
+        public Polygon(List<Line> l, Color c, double s, objecttype ot, double reflect, double tr)
         {
             lines = l;
             color = c;
+            specular = s;
+            Objecttype = ot;
+            reflective = reflect;
+            transparency = tr;
         }
         public void find_normal(List<PointD> points, PointD center)
         {

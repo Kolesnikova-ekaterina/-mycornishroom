@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BB194F9C-DF0B-41EB-9CCE-61458A100836}</ProjectGuid>
+    <ProjectGuid>{6971DDEA-1322-4E8F-A95C-F88EA102B629}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>lab6_a</RootNamespace>
-    <AssemblyName>lab6_a</AssemblyName>
+    <RootNamespace>cornishroom</RootNamespace>
+    <AssemblyName>cornishroom</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,8 +52,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="light.cs" />
+    <Compile Include="object3d.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RayTracing.cs" />
+    <Compile Include="Vector.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
